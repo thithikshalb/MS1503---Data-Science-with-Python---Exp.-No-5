@@ -31,22 +31,76 @@ To perform fundamental Natural Language Processing (NLP) text preprocessing step
 | | `lemmatizer.lemmatize()` | Converts inflected words into their canonical base dictionary forms |
 
 ## Program
-
 #Text Preprocessing: Tokenization, Stopword Removal, and Lemmatization using NLTK
-
-
+```python
 #Step 1: Download NLTK resources
+import nltk
 
-#Step 2: Sample customer feedback text
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+#Step 2: Define Sample Customer Feedback Text
+
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+text = """The customers are very happy with our products.
+They were enjoying the excellent services and delivery.
+Some customers complained about delayed orders."""
+
+print("Original Text:")
+print(text)
 
 #Step 3: Tokenization
 
-#Step 4: Stopword Removal & Punctuation Filtering
+tokens = word_tokenize(text)
+
+print("\nTokenized Words:")
+print(tokens)
+
+#Step 4: Stopword Removal and Punctuation Filtering
+
+stop_words = set(stopwords.words('english'))
+
+filtered_tokens = [
+    word for word in tokens
+    if word.isalpha() and word.lower() not in stop_words
+]
+
+print("\nFiltered Tokens:")
+print(filtered_tokens)
 
 #Step 5: Lemmatization
 
+lemmatizer = WordNetLemmatizer()
+
+lemmatized_words = [
+    lemmatizer.lemmatize(word.lower())
+    for word in filtered_tokens
+]
+
+print("\nLemmatized Words:")
+print(lemmatized_words)
+```
+
 ## Output
+```text
+Original Text:
+The customers are very happy with our products.
+They were enjoying the excellent services and delivery.
+Some customers complained about delayed orders.
 
+Tokenized Words:
+['The', 'customers', 'are', 'very', 'happy', 'with', 'our', 'products', '.', 'They', 'were', 'enjoying', 'the', 'excellent', 'services', 'and', 'delivery', '.', 'Some', 'customers', 'complained', 'about', 'delayed', 'orders', '.']
 
+Filtered Tokens:
+['customers', 'happy', 'products', 'enjoying', 'excellent', 'services', 'delivery', 'customers', 'complained', 'delayed', 'orders']
+
+Lemmatized Words:
+['customer', 'happy', 'product', 'enjoying', 'excellent', 'service', 'delivery', 'customer', 'complained', 'delayed', 'order']
+```
 ## Result
 The program successfully performed tokenization, punctuation filtering, stopword removal, and lemmatization on the customer feedback text using the NLTK library.
